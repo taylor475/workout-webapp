@@ -29,6 +29,16 @@ body {
     color: white;
 }
 
+.workout-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .tracker-button {
-    margin: auto;
+    margin: 2.5px;
+    flex: 1 1 calc(20% - 5px);
+    max-width: calc(20% - 5px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
 }
