@@ -1,0 +1,44 @@
+body {
+    background-color: black;
+}
+
+#title {
+    margin: auto;
+    padding-bottom: 5%;
+    width: 75%;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+.workout-set {
+    margin: auto;
+    width: 75%;
+    text-align: center;
+    border: 0.75vw solid darkred;
+    background-color: grey;
+    color: white;
+}
+
+.workout {
+    margin: auto;
+    width: 85%;
+    text-align: center;
+    border: 0.55vw dotted black;
+    background-color: darkslategray;
+    color: white;
+}
+
+.workout-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tracker-button {
+    margin: 2.5px;
+    flex: 1 1 calc(20% - 5px);
+    max-width: calc(20% - 5px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+}
