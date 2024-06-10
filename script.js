@@ -49,7 +49,10 @@ function createNewWorkout(setContainer) {
     // Create and append the workout details
     const workoutDetails = document.createElement('h4');
     workoutDetails.id = 'workout-details-' + workoutCounter;
-    workoutDetails.textContent = '5 x 5 - n lbs.';
+    workoutDetails.textContent = 'n x n - n lbs.';
+    workoutDetails.onclick = function() {
+        changeWorkoutDetails(workoutDetails);
+    }
     workout.appendChild(workoutDetails);
 
     // Create the workout buttons container
@@ -83,6 +86,19 @@ function changeWorkoutType(workoutHeading) {
     let input = prompt('Please enter the type of workout', 'Overhead Press');
     input = sanitize(input);
     workoutHeading.textContent = input;
+}
+
+function changeWorkoutDetails(workoutDetails) {
+    let sets = prompt('Please enter the number of sets', '5');
+    sets = sanitize(sets).replace(/[^\d]*/ig, '');
+
+    let reps = prompt('Please enter the number of reps', '5');
+    reps = sanitize(sets).replace(/[^\d]*/ig, '');
+
+    let weight = prompt('Please enter the weight per rep', '10');
+    reps = sanitize(sets).replace(/[^\d]*/ig, '');
+
+    workoutDetails.textContent = sets + ' x ' + reps + ' - ' + weight + ' lbs.'
 }
 
 function sanitize(string) {
