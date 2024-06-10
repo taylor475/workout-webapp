@@ -83,12 +83,16 @@ function createNewTracker(buttonContainer) {
 }
 
 function changeWorkoutType(workoutHeading) {
+    // Gather and sanitize user input
     let input = prompt('Please enter the type of workout', 'Overhead Press');
     input = sanitize(input);
+
+    // Set text to sanitized user input
     workoutHeading.textContent = input;
 }
 
 function changeWorkoutDetails(workoutDetails) {
+    // Gather and sanitize user input
     let sets = prompt('Please enter the number of sets', '5');
     sets = sanitize(sets).replace(/[^\d]*/ig, '');
 
@@ -98,10 +102,12 @@ function changeWorkoutDetails(workoutDetails) {
     let weight = prompt('Please enter the weight per rep', '10');
     reps = sanitize(sets).replace(/[^\d]*/ig, '');
 
+    // Set text to formatted and sanitized user input
     workoutDetails.textContent = sets + ' x ' + reps + ' - ' + weight + ' lbs.'
 }
 
 function sanitize(string) {
+    // Create a map of characters and their HTML mappings
     const map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -110,6 +116,8 @@ function sanitize(string) {
         "'": '&#x27;',
         "/": '&#x2F;',
     };
+
+    // Use regex to replace certain characters with their HTML mappings
     const reg = /[&<>"'/]/ig;
     return string.replace(reg, (match)=>(map[match]));
   }
