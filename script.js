@@ -1,22 +1,38 @@
-let workoutCounter = 1
+let workoutSetCounter = 1
 
 function createNewSet() {
     // Create the main workout set container
     const workoutSet = document.createElement('div');
     workoutSet.className = 'workout-set';
+    workoutSet.id = 'workout-set-' + workoutSetCounter;
 
     // Create and append the main heading
     const mainHeading = document.createElement('h2');
-    mainHeading.textContent = 'Workout Set ' + workoutCounter;
+    mainHeading.textContent = 'Workout Set ' + workoutSetCounter;
     workoutSet.appendChild(mainHeading);
 
     // Increment the workout counter for the next set
-    workoutCounter++;
+    workoutSetCounter++;
 
+    // Create and append the "Add Another Workout" button
+    const addButton = document.createElement('button');
+    addButton.className = 'new-workout';
+    addButton.textContent = 'Add Another Workout';
+    addButton.onclick = function() {
+        createNewWorkout(workoutSet);
+    }
+    workoutSet.appendChild(addButton);
+
+    // Append the entire workout set to the main container
+    const container = document.getElementById('workout-container');
+    container.appendChild(workoutSet);
+}
+
+function createNewWorkout(setContainer) {
     // Create the workout container
     const workout = document.createElement('div');
     workout.className = 'workout';
-    workoutSet.appendChild(workout);
+    setContainer.appendChild(workout);
 
     // Create and append the subheading
     const subHeading = document.createElement('h3');
@@ -35,28 +51,13 @@ function createNewSet() {
 
     // Create and append the tracker buttons
     for (let i = 0; i < 6; i++) {
-        const button = document.createElement('button');
-        button.className = 'tracker-button';
-        button.textContent = '5';
-        workoutButtons.appendChild(button);
+        createNewTracker(workoutButtons);
     }
-
-    // Create and append the "Add Another Workout" button
-    const addButton = document.createElement('button');
-    addButton.className = 'new-workout';
-    addButton.textContent = 'Add Another Workout';
-    addButton.onclick = createNewWorkout;
-    workoutSet.appendChild(addButton);
-
-    // Append the entire workout set to the main container
-    const container = document.getElementById('workout-container');
-    container.appendChild(workoutSet);
 }
 
-function createNewWorkout() {
-    //
-}
-
-function createNewTracker() {
-    //
+function createNewTracker(buttonContainer) {
+    const button = document.createElement('button');
+    button.textContent = '5';
+    button.className = 'tracker-button';
+    buttonContainer.appendChild(button);
 }
