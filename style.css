@@ -11,6 +11,17 @@ body {
     color: white;
 }
 
+#new-set {
+    margin: auto;
+    display: block;
+    margin-top: 5%;
+    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    background-color: grey;
+    color: white;
+}
+
 .workout-set {
     margin: auto;
     width: 75%;
@@ -41,4 +52,16 @@ body {
     max-width: calc(20% - 5px);
     aspect-ratio: 1 / 1;
     border-radius: 50%;
+}
+
+.new-workout {
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: block;
+    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    background-color: grey;
+    color: white;
 }
