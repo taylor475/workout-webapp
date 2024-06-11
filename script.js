@@ -97,10 +97,10 @@ function changeWorkoutDetails(workoutDetails) {
     sets = sanitize(sets).replace(/[^\d]*/ig, '');
 
     let reps = prompt('Please enter the number of reps', '5');
-    reps = sanitize(sets).replace(/[^\d]*/ig, '');
+    reps = sanitize(reps).replace(/[^\d]*/ig, '');
 
     let weight = prompt('Please enter the weight per rep', '10');
-    reps = sanitize(sets).replace(/[^\d]*/ig, '');
+    weight = sanitize(weight).replace(/[^\d]*/ig, '');
 
     // Set text to formatted and sanitized user input
     workoutDetails.textContent = sets + ' x ' + reps + ' - ' + weight + ' lbs.'
