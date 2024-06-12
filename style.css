@@ -52,6 +52,7 @@ body {
     max-width: calc(20% - 5px);
     aspect-ratio: 1 / 1;
     border-radius: 50%;
+    background-color: white;
 }
 
 .new-workout {

@@ -78,6 +78,29 @@ function createNewTracker(buttonContainer, repCount) {
     button.textContent = repCount
     buttonContainer.appendChild(button)
 
+    // Initialize click counter
+    button.dataset.clickCount = 0
+
+    // Add event listener to decrement the button value and change color on subsequent clicks
+    button.addEventListener('click', function() {
+        let clickCount = parseInt(button.dataset.clickCount)
+        
+        if (clickCount === 0) {
+            button.style.backgroundColor = 'red'
+        } else {
+            let currentValue = parseInt(button.textContent)
+            if (currentValue > 0) {
+                button.textContent = currentValue - 1
+            }
+
+            // Calculate the new color based on the click count
+            let colorValue = Math.max(0, 0 + clickCount * (255 / repCount))
+            button.style.backgroundColor = `rgb(255, ${colorValue}, ${colorValue})`
+        }
+        
+        button.dataset.clickCount = clickCount + 1
+    })
+
     // Increment the button counter for the next button
     trackerButtonCounter++
 }
