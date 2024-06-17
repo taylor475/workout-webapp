@@ -15,6 +15,7 @@ function createNewSet() {
 
     // Increment the workout set counter for the next set
     workoutSetCounter++
+    localStorage.setItem('workoutSetCounter', workoutSetCounter)
 
     // Create and append the "Add Another Workout" button
     const addButton = document.createElement('button')
@@ -37,23 +38,34 @@ function createNewWorkout(setContainer) {
     workout.id = 'workout-' + workoutCounter
     setContainer.appendChild(workout)
 
+    // Save parent container in localStorage
+    localStorage.setItem(workout.id + '-parent', setContainer.id)
+
     // Create and append the subheading
     const subHeading = document.createElement('h3')
     subHeading.id = 'workout-name-' + workoutCounter
     subHeading.textContent = '[CHANGE ME]'
     subHeading.onclick = function() {
-        changeWorkoutType(subHeading)
+        changeWorkoutType(workout, subHeading)
     }
     workout.appendChild(subHeading)
+
+    // Create default localStorage workout name
+    localStorage.setItem(workout.id + '-name', '[CHANGE ME]')
 
     // Create and append the workout details
     const workoutDetails = document.createElement('h4')
     workoutDetails.id = 'workout-details-' + workoutCounter
-    workoutDetails.textContent = 'n x n - n lbs.'
+    workoutDetails.textContent = '5 x 5 - 5 lbs.'
     workoutDetails.onclick = function() {
-        changeWorkoutDetails(workoutDetails, workoutButtons)
+        changeWorkoutDetails(workout, workoutDetails, workoutButtons)
     }
     workout.appendChild(workoutDetails)
+
+    // Create default localStorage workout values
+    localStorage.setItem(workout.id + '-sets', 5)
+    localStorage.setItem(workout.id + '-reps', 5)
+    localStorage.setItem(workout.id + '-weight', 5)
 
     // Create the workout buttons container
     const workoutButtons = document.createElement('div')
@@ -68,6 +80,7 @@ function createNewWorkout(setContainer) {
 
     // Increment the workout counter for the next workout
     workoutCounter++
+    localStorage.setItem('workoutCounter', workoutCounter)
 }
 
 function createNewTracker(buttonContainer, repCount) {
@@ -105,16 +118,17 @@ function createNewTracker(buttonContainer, repCount) {
     trackerButtonCounter++
 }
 
-function changeWorkoutType(workoutHeading) {
+function changeWorkoutType(parentWorkout, workoutHeading) {
     // Gather and sanitize user input
     let input = prompt('Please enter the type of workout', 'Overhead Press')
     input = sanitize(input)
 
     // Set text to sanitized user input
     workoutHeading.textContent = input
+    localStorage.setItem(parentWorkout.id + '-name', input)
 }
 
-function changeWorkoutDetails(workoutDetails, buttonContainer) {
+function changeWorkoutDetails(parentWorkout, workoutDetails, buttonContainer) {
     // Gather and sanitize user input
     let sets = prompt('Please enter the number of sets', '5')
     sets = sanitize(sets).replace(/[^\d]*/ig, '')
@@ -130,6 +144,11 @@ function changeWorkoutDetails(workoutDetails, buttonContainer) {
 
     // Update the tracker buttons based on the new details
     updateTrackerButtons(buttonContainer, sets, reps)
+
+    // Update default localStorage workout values
+    localStorage.setItem(parentWorkout.id + '-sets', sets)
+    localStorage.setItem(parentWorkout.id + '-reps', reps)
+    localStorage.setItem(parentWorkout.id + '-weight', weight)
 }
 
 function updateTrackerButtons(buttonContainer, sets, reps) {
@@ -157,3 +176,14 @@ function sanitize(string) {
     const reg = /[&<>"'/]/ig
     return string.replace(reg, (match)=>(map[match]))
   }
+
+function deleteAllData() {
+    // Display confirmation pop-up before proceeding
+    if (confirm('This will permanently delete all stored data. Are you sure you want to proceed?')) {
+        localStorage.clear()
+        window.alert('Data deleted.')
+    }
+    else {
+        window.alert('Deletion canceled. Your data is still saved.')
+    }
+}

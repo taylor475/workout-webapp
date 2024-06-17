@@ -11,6 +11,17 @@ body {
     color: white;
 }
 
+#clear-data {
+    margin: auto;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    text-align: center;
+    font-weight: bold;
+    background-color: darkred;
+    color: white;
+}
+
 #new-set {
     margin: auto;
     display: block;
