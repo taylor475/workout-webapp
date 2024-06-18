@@ -15,12 +15,15 @@ function loadData() {
 
         // Recreate the workouts as found in localStorage
         for (i = 1; i < workoutCounter; i++) {
-            container = localStorage.getItem('workout-' + i + '-parent')
+            containerId = localStorage.getItem('workout-' + i + '-parent')
+            container = document.getElementById(containerId)
             workoutName = localStorage.getItem('workout-' + i + '-name')
+            console.log(workoutName)
             sets = localStorage.getItem('workout-' + i + '-sets')
             reps = localStorage.getItem('workout-' + i + '-reps')
             weight = localStorage.getItem('workout-' + i + '-weight')
-            loadWorkout(container, 'workout-set-' + i, workoutName, sets, reps, weight)
+
+            loadWorkout(container, 'workout-' + i, workoutName, sets, reps, weight)
         }
     }
     else {
@@ -147,7 +150,7 @@ function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, w
 
     // Create and append the subheading
     const subHeading = document.createElement('h3')
-    subHeading.id = workout.id + '-name'
+    subHeading.id = workoutId + '-name'
     subHeading.textContent = workoutName
     subHeading.onclick = function() {
         changeWorkoutType(workout)
@@ -156,8 +159,8 @@ function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, w
 
     // Create and append the workout details
     const workoutDetails = document.createElement('h4')
-    workoutDetails.id = workout.id + '-details'
-    workoutDetails.textContent = setCount + ' x ' + repCount + ' ' + weight + ' lbs.'
+    workoutDetails.id = workoutId + '-details'
+    workoutDetails.textContent = setCount + ' x ' + repCount + ' - ' + weight + ' lbs.'
     workoutDetails.onclick = function() {
         changeWorkoutDetails(workout, workoutButtons)
     }
@@ -218,7 +221,7 @@ function changeWorkoutType(parentWorkout) {
     // Set text to sanitized user input
     workoutHeading = document.getElementById(parentWorkout.id + '-name')
     workoutHeading.textContent = input
-    localStorage.setItem(workoutHeading, input)
+    localStorage.setItem(parentWorkout.id + '-name', input)
 }
 
 function changeWorkoutDetails(parentWorkout, buttonContainer) {
