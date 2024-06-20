@@ -100,13 +100,7 @@ function createNewWorkout(setContainer) {
     localStorage.setItem(workout.id + '-parent', setContainer.id)
 
     // Create and append the subheading
-    const subHeading = document.createElement('h3')
-    subHeading.id = workout.id + '-name'
-    subHeading.textContent = '[CHANGE ME]'
-    subHeading.onclick = function() {
-        changeWorkoutType(workout)
-    }
-    workout.appendChild(subHeading)
+    createNewSubheading(workout)
 
     // Create default localStorage workout name
     localStorage.setItem(workout.id + '-name', '[CHANGE ME]')
@@ -149,13 +143,7 @@ function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, w
     setContainer.appendChild(workout)
 
     // Create and append the subheading
-    const subHeading = document.createElement('h3')
-    subHeading.id = workoutId + '-name'
-    subHeading.textContent = workoutName
-    subHeading.onclick = function() {
-        changeWorkoutType(workout)
-    }
-    workout.appendChild(subHeading)
+    createNewSubheading(workout, workoutName)
 
     // Create and append the workout details
     const workoutDetails = document.createElement('h4')
@@ -176,6 +164,25 @@ function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, w
     for (let i = 0; i < setCount; i++) {
         createNewTracker(workoutButtons, repCount)
     }
+}
+
+function createNewSubheading(parentWorkout, workoutName = '[CHANGE ME]') {
+    // Create the subheading element
+    const subHeading = document.createElement('h3')
+
+    // Set the subheading id
+    subHeading.id = parentWorkout.id + '-name'
+
+    // Set the text content of the subheading
+    subHeading.textContent = workoutName
+
+    // Give the subheading a function to change its text
+    subHeading.onclick = function() {
+        changeWorkoutType(parentWorkout)
+    }
+
+    // Add the subheading to the DOM
+    parentWorkout.appendChild(subHeading)
 }
 
 function createNewTracker(buttonContainer, repCount) {
