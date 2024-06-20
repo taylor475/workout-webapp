@@ -105,24 +105,20 @@ function createNewWorkout(setContainer) {
     // Create default localStorage workout name
     localStorage.setItem(workout.id + '-name', '[CHANGE ME]')
 
+    // Create the workout buttons container
+    const workoutButtons = document.createElement('div')
+    workoutButtons.id = 'workout-buttons-container-' + workoutCounter
+    workoutButtons.className = 'workout-buttons'
+
     // Create and append the workout details
-    const workoutDetails = document.createElement('h4')
-    workoutDetails.id = workout.id + '-details'
-    workoutDetails.textContent = '5 x 5 - 5 lbs.'
-    workoutDetails.onclick = function() {
-        changeWorkoutDetails(workout, workoutButtons)
-    }
-    workout.appendChild(workoutDetails)
+    createNewDetails(workout, undefined, undefined, undefined, workoutButtons)
 
     // Create default localStorage workout values
     localStorage.setItem(workout.id + '-sets', 5)
     localStorage.setItem(workout.id + '-reps', 5)
     localStorage.setItem(workout.id + '-weight', 5)
 
-    // Create the workout buttons container
-    const workoutButtons = document.createElement('div')
-    workoutButtons.id = 'workout-buttons-container-' + workoutCounter
-    workoutButtons.className = 'workout-buttons'
+    // Append the workout buttons container
     workout.appendChild(workoutButtons)
 
     // Create and append the tracker buttons
@@ -145,19 +141,15 @@ function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, w
     // Create and append the subheading
     createNewSubheading(workout, workoutName)
 
-    // Create and append the workout details
-    const workoutDetails = document.createElement('h4')
-    workoutDetails.id = workoutId + '-details'
-    workoutDetails.textContent = setCount + ' x ' + repCount + ' - ' + weight + ' lbs.'
-    workoutDetails.onclick = function() {
-        changeWorkoutDetails(workout, workoutButtons)
-    }
-    workout.appendChild(workoutDetails)
-
     // Create the workout buttons container
     const workoutButtons = document.createElement('div')
     workoutButtons.id = 'workout-buttons-container-' + workoutCounter
     workoutButtons.className = 'workout-buttons'
+
+    // Create and append the workout details
+    createNewDetails(workout, setCount, repCount, weight, workoutButtons)
+
+    // Append the workout buttons container
     workout.appendChild(workoutButtons)
 
     // Create and append the tracker buttons
@@ -183,6 +175,25 @@ function createNewSubheading(parentWorkout, workoutName = '[CHANGE ME]') {
 
     // Add the subheading to the DOM
     parentWorkout.appendChild(subHeading)
+}
+
+function createNewDetails(parentWorkout, setCount = 5, repCount = 5, weight = 5, workoutButtons) {
+    // Create the details element
+    const workoutDetails = document.createElement('h4')
+
+    // Set the details id
+    workoutDetails.id = parentWorkout.id + '-details'
+
+    // Set the text content of the details
+    workoutDetails.textContent = setCount + ' x ' + repCount + ' - ' + weight + ' lbs.'
+
+    // Give the details a function to change portions of its text
+    workoutDetails.onclick = function() {
+        changeWorkoutDetails(parentWorkout, workoutButtons)
+    }
+
+    // Add the details to the DOM
+    parentWorkout.appendChild(workoutDetails)
 }
 
 function createNewTracker(buttonContainer, repCount) {
