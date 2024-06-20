@@ -278,6 +278,7 @@ function deleteAllData() {
     // Display confirmation pop-up before proceeding
     if (confirm('This will permanently delete all stored data. Are you sure you want to proceed?')) {
         localStorage.clear()
+        location.reload(true)
         window.alert('Data deleted.')
     }
     else {
