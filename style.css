@@ -67,6 +67,17 @@ body {
     background-color: white;
 }
 
+.finish-set {
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: inline;
+    text-align: center;
+    font-weight: bold;
+    background-color: green;
+    color: white;
+}
+
 .new-workout {
     margin: auto;
     margin-top: 1%;

@@ -45,6 +45,15 @@ function createNewSet() {
     mainHeading.textContent = 'Workout Set ' + workoutSetCounter
     workoutSet.appendChild(mainHeading)
 
+    // Create and append the "Finish Set" button
+    const finishButton = document.createElement('button')
+    finishButton.className = 'finish-set'
+    finishButton.textContent = 'Finish Set'
+    finishButton.onclick = function() {
+        finishWorkoutSet(workoutSet)
+    }
+    workoutSet.appendChild(finishButton)
+
     // Increment the workout set counter for the next set
     workoutSetCounter++
     localStorage.setItem('workoutSetCounter', workoutSetCounter)
@@ -74,6 +83,15 @@ function loadSet() {
     const mainHeading = document.createElement('h2')
     mainHeading.textContent = 'Workout Set ' + i
     workoutSet.appendChild(mainHeading)
+
+    // Create and append the "Finish Set" button
+    const finishButton = document.createElement('button')
+    finishButton.className = 'finish-set'
+    finishButton.textContent = 'Finish Set'
+    finishButton.onclick = function() {
+        finishWorkoutSet(workoutSet)
+    }
+    workoutSet.appendChild(finishButton)
 
     // Create and append the "Add Another Workout" button
     const addButton = document.createElement('button')
