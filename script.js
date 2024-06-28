@@ -41,13 +41,7 @@ function createNewSet() {
     workoutSet.id = 'workout-set-' + workoutSetCounter
 
     // Create and append the "Finish Set" button
-    const finishButton = document.createElement('button')
-    finishButton.className = 'finish-set'
-    finishButton.textContent = 'Finish Set'
-    finishButton.onclick = function() {
-        finishWorkoutSet(workoutSet)
-    }
-    workoutSet.appendChild(finishButton)
+    createFinishWorkoutButton(workoutSet)
 
     // Create and append the main heading
     const mainHeading = document.createElement('h2')
@@ -73,19 +67,13 @@ function loadSet() {
     workoutSet.className = 'workout-set'
     workoutSet.id = 'workout-set-' + i
 
+    // Create and append the "Finish Set" button
+    createFinishWorkoutButton(workoutSet)
+
     // Create and append the main heading
     const mainHeading = document.createElement('h2')
     mainHeading.textContent = 'Workout Set ' + i
     workoutSet.appendChild(mainHeading)
-
-    // Create and append the "Finish Set" button
-    const finishButton = document.createElement('button')
-    finishButton.className = 'finish-set'
-    finishButton.textContent = 'Finish Set'
-    finishButton.onclick = function() {
-        finishWorkoutSet(workoutSet)
-    }
-    workoutSet.appendChild(finishButton)
 
     // Create and append the "Add Another Workout" button
     createNewWorkoutButton(workoutSet)
@@ -181,6 +169,25 @@ function createNewWorkoutButton(parentWorkoutSet) {
 
     // Add the button to the DOM
     parentWorkoutSet.appendChild(addButton)
+}
+
+function createFinishWorkoutButton(parentWorkoutSet) {
+    // Create the button element
+    const finishButton = document.createElement('button')
+
+    // Set the button class
+    finishButton.className = 'finish-set'
+
+    // Set the text content of the button
+    finishButton.textContent = 'Finish Set'
+
+    // Give the button a function to save data related to the completion of a workout set
+    finishButton.onclick = function() {
+        finishWorkoutSet(workoutSet)
+    }
+
+    // Add the button to the DOM
+    parentWorkoutSet.appendChild(finishButton)
 }
 
 function createNewSubheading(parentWorkout, workoutName = '[CHANGE ME]') {
