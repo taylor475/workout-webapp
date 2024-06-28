@@ -59,13 +59,7 @@ function createNewSet() {
     localStorage.setItem('workoutSetCounter', workoutSetCounter)
 
     // Create and append the "Add Another Workout" button
-    const addButton = document.createElement('button')
-    addButton.className = 'new-workout'
-    addButton.textContent = 'Add Another Workout'
-    addButton.onclick = function() {
-        createNewWorkout(workoutSet)
-    }
-    workoutSet.appendChild(addButton)
+    createNewWorkoutButton(workoutSet)
 
     // Append the entire workout set to the main container
     const container = document.getElementById('workout-container')
@@ -94,13 +88,7 @@ function loadSet() {
     workoutSet.appendChild(finishButton)
 
     // Create and append the "Add Another Workout" button
-    const addButton = document.createElement('button')
-    addButton.className = 'new-workout'
-    addButton.textContent = 'Add Another Workout'
-    addButton.onclick = function() {
-        createNewWorkout(workoutSet)
-    }
-    workoutSet.appendChild(addButton)
+    createNewWorkoutButton(workoutSet)
 
     // Append the entire workout set to the main container
     const container = document.getElementById('workout-container')
@@ -174,6 +162,25 @@ function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, w
     for (let i = 0; i < setCount; i++) {
         createNewTracker(workoutButtons, repCount)
     }
+}
+
+function createNewWorkoutButton(parentWorkoutSet) {
+    // Create the button element
+    const addButton = document.createElement('button')
+
+    // Set the button class
+    addButton.className = 'new-workout'
+
+    // Set the text content of the button
+    addButton.textContent = 'Add Another Workout'
+
+    // Give the button a function to create a new button
+    addButton.onclick = function() {
+        createNewWorkout(workoutSet)
+    }
+
+    // Add the button to the DOM
+    parentWorkoutSet.appendChild(addButton)
 }
 
 function createNewSubheading(parentWorkout, workoutName = '[CHANGE ME]') {
