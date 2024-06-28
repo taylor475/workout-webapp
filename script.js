@@ -40,11 +40,6 @@ function createNewSet() {
     workoutSet.className = 'workout-set'
     workoutSet.id = 'workout-set-' + workoutSetCounter
 
-    // Create and append the main heading
-    const mainHeading = document.createElement('h2')
-    mainHeading.textContent = 'Workout Set ' + workoutSetCounter
-    workoutSet.appendChild(mainHeading)
-
     // Create and append the "Finish Set" button
     const finishButton = document.createElement('button')
     finishButton.className = 'finish-set'
@@ -53,6 +48,11 @@ function createNewSet() {
         finishWorkoutSet(workoutSet)
     }
     workoutSet.appendChild(finishButton)
+
+    // Create and append the main heading
+    const mainHeading = document.createElement('h2')
+    mainHeading.textContent = 'Workout Set ' + workoutSetCounter
+    workoutSet.appendChild(mainHeading)
 
     // Increment the workout set counter for the next set
     workoutSetCounter++
