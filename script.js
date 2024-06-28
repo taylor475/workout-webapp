@@ -40,32 +40,20 @@ function createNewSet() {
     workoutSet.className = 'workout-set'
     workoutSet.id = 'workout-set-' + workoutSetCounter
 
+    // Create and append the "Finish Set" button
+    createFinishWorkoutButton(workoutSet)
+
     // Create and append the main heading
     const mainHeading = document.createElement('h2')
     mainHeading.textContent = 'Workout Set ' + workoutSetCounter
     workoutSet.appendChild(mainHeading)
-
-    // Create and append the "Finish Set" button
-    const finishButton = document.createElement('button')
-    finishButton.className = 'finish-set'
-    finishButton.textContent = 'Finish Set'
-    finishButton.onclick = function() {
-        finishWorkoutSet(workoutSet)
-    }
-    workoutSet.appendChild(finishButton)
 
     // Increment the workout set counter for the next set
     workoutSetCounter++
     localStorage.setItem('workoutSetCounter', workoutSetCounter)
 
     // Create and append the "Add Another Workout" button
-    const addButton = document.createElement('button')
-    addButton.className = 'new-workout'
-    addButton.textContent = 'Add Another Workout'
-    addButton.onclick = function() {
-        createNewWorkout(workoutSet)
-    }
-    workoutSet.appendChild(addButton)
+    createNewWorkoutButton(workoutSet)
 
     // Append the entire workout set to the main container
     const container = document.getElementById('workout-container')
@@ -79,28 +67,16 @@ function loadSet() {
     workoutSet.className = 'workout-set'
     workoutSet.id = 'workout-set-' + i
 
+    // Create and append the "Finish Set" button
+    createFinishWorkoutButton(workoutSet)
+
     // Create and append the main heading
     const mainHeading = document.createElement('h2')
     mainHeading.textContent = 'Workout Set ' + i
     workoutSet.appendChild(mainHeading)
 
-    // Create and append the "Finish Set" button
-    const finishButton = document.createElement('button')
-    finishButton.className = 'finish-set'
-    finishButton.textContent = 'Finish Set'
-    finishButton.onclick = function() {
-        finishWorkoutSet(workoutSet)
-    }
-    workoutSet.appendChild(finishButton)
-
     // Create and append the "Add Another Workout" button
-    const addButton = document.createElement('button')
-    addButton.className = 'new-workout'
-    addButton.textContent = 'Add Another Workout'
-    addButton.onclick = function() {
-        createNewWorkout(workoutSet)
-    }
-    workoutSet.appendChild(addButton)
+    createNewWorkoutButton(workoutSet)
 
     // Append the entire workout set to the main container
     const container = document.getElementById('workout-container')
@@ -110,7 +86,7 @@ function loadSet() {
 function createNewWorkout(setContainer) {
     // Create the workout container
     const workout = document.createElement('div')
-    workout.className = 'workout'
+    workout.className = 'workout ' + setContainer.id + '-child'
     workout.id = 'workout-' + workoutCounter
     setContainer.appendChild(workout)
 
@@ -152,7 +128,7 @@ function createNewWorkout(setContainer) {
 function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, weight) {
     // Create the workout container
     const workout = document.createElement('div')
-    workout.className = 'workout'
+    workout.className = 'workout ' + setContainer.id + '-child'
     workout.id = workoutId
     setContainer.appendChild(workout)
 
@@ -161,7 +137,7 @@ function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, w
 
     // Create the workout buttons container
     const workoutButtons = document.createElement('div')
-    workoutButtons.id = 'workout-buttons-container-' + workoutCounter
+    workoutButtons.id = 'workout-buttons-container-' + workout.id.slice(-1)
     workoutButtons.className = 'workout-buttons'
 
     // Create and append the workout details
@@ -174,6 +150,44 @@ function loadWorkout(setContainer, workoutId, workoutName, setCount, repCount, w
     for (let i = 0; i < setCount; i++) {
         createNewTracker(workoutButtons, repCount)
     }
+}
+
+function createNewWorkoutButton(parentWorkoutSet) {
+    // Create the button element
+    const addButton = document.createElement('button')
+
+    // Set the button class
+    addButton.className = 'new-workout'
+
+    // Set the text content of the button
+    addButton.textContent = 'Add Another Workout'
+
+    // Give the button a function to create a new button
+    addButton.onclick = function() {
+        createNewWorkout(parentWorkoutSet)
+    }
+
+    // Add the button to the DOM
+    parentWorkoutSet.appendChild(addButton)
+}
+
+function createFinishWorkoutButton(parentWorkoutSet) {
+    // Create the button element
+    const finishButton = document.createElement('button')
+
+    // Set the button class
+    finishButton.className = 'finish-set'
+
+    // Set the text content of the button
+    finishButton.textContent = 'Finish Set'
+
+    // Give the button a function to save data related to the completion of a workout set
+    finishButton.onclick = function() {
+        finishWorkoutSet(parentWorkoutSet)
+    }
+
+    // Add the button to the DOM
+    parentWorkoutSet.appendChild(finishButton)
 }
 
 function createNewSubheading(parentWorkout, workoutName = '[CHANGE ME]') {
@@ -217,7 +231,7 @@ function createNewDetails(parentWorkout, setCount = 5, repCount = 5, weight = 5,
 function createNewTracker(buttonContainer, repCount) {
     // Create the tracker button
     const button = document.createElement('button')
-    button.className = 'tracker-button'
+    button.className = 'tracker-button ' + buttonContainer.id + '-child'
     button.id = 'tracker-button-' + trackerButtonCounter
     button.textContent = repCount
     buttonContainer.appendChild(button)
@@ -292,6 +306,76 @@ function updateTrackerButtons(buttonContainer, sets, reps) {
     for (let i = 0; i < sets; i++) {
         createNewTracker(buttonContainer, reps)
     }
+}
+
+function finishWorkoutSet(workoutSet) {
+    // Create a string to contain workout details associated with the completed workout
+    let setDetails = ''
+
+    // Get and save the current date
+    const date = getCurrentDate()
+
+    // Find workouts within the specified set
+    const workouts = document.getElementsByClassName(workoutSet.id + '-child')
+
+    // Loop through each workout
+    for (let i = 0; i < workouts.length; i++) {
+        // Get the current workout from the array of workouts
+        let workout = workouts.item(i)
+
+        // Get details about the current workout
+        let type = document.getElementById(workout.id + '-name').textContent
+        let weight = localStorage.getItem(workout.id + '-weight')
+
+        // Get the button container associated with the current workout
+        console.log('workout-buttons-container-' + workout.id.slice(-1))
+        const buttonContainer = document.getElementById('workout-buttons-container-' + workout.id.slice(-1))
+
+        // Gather all buttons in the button container
+        const buttons = document.getElementsByClassName(buttonContainer.id + '-child')
+
+        // Create a tracker for the total number of recorded sets
+        let totalSets = 0
+
+        // Loop through each button
+        for (let j = 0; j < buttons.length; j++) {
+            // Get the current button from the array of buttons
+            let button = buttons.item(j)
+
+            // Get the click count of the current button
+            let clickCount = parseInt(button.dataset.clickCount)
+
+            // Get the number of sets for the current button
+            let setValue = parseInt(button.textContent)
+
+            // Checks if the button has been clicked
+            if (clickCount > 0) {
+                // Adds the number of completed sets from the button to the total number of completed sets
+                totalSets += setValue
+            }
+        }
+
+        // Add current workout details to the set details string
+        setDetails += `{Type: ${type}, Weight: ${weight}, Finished Sets: ${totalSets}}`
+    }
+
+    // Save finished workout details to localStorage
+    localStorage.setItem(date, setDetails)
+    console.log(setDetails)
+}
+
+function getCurrentDate() {
+    // Get the current date
+    const date = new Date()
+
+    // Set the individual components of the date
+    let day = date.getDay()
+    let year = date.getFullYear()
+    let month = date.getMonth() + 1
+
+    // Combine individual date components
+    let currentDate = `${month}-${day}-${year}`
+    return currentDate
 }
 
 function sanitize(string) {
