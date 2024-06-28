@@ -164,7 +164,7 @@ function createNewWorkoutButton(parentWorkoutSet) {
 
     // Give the button a function to create a new button
     addButton.onclick = function() {
-        createNewWorkout(workoutSet)
+        createNewWorkout(parentWorkoutSet)
     }
 
     // Add the button to the DOM
