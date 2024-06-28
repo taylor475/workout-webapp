@@ -294,6 +294,20 @@ function updateTrackerButtons(buttonContainer, sets, reps) {
     }
 }
 
+function getCurrentDate() {
+    // Get the current date
+    const date = new Date()
+
+    // Set the individual components of the date
+    let day = date.getDay()
+    let year = date.getFullYear()
+    let month = date.getMonth() + 1
+
+    // Combine individual date components
+    let currentDate = `${month}-${day}-${year}`
+    return currentDate
+}
+
 function sanitize(string) {
     // Create a map of characters and their HTML mappings
     const map = {
