@@ -46,6 +46,7 @@ body {
 
 .workout {
     margin: auto;
+    margin-top: 2.5%;
     width: 85%;
     text-align: center;
     border: 0.55vw dotted #ffffff;
