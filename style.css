@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: #001427;
 }
 
 #title {
@@ -30,7 +30,7 @@ body {
     width: 50%;
     text-align: center;
     font-weight: bold;
-    background-color: grey;
+    background-color: #808f85;
     color: white;
 }
 
@@ -38,8 +38,8 @@ body {
     margin: auto;
     width: 75%;
     text-align: center;
-    border: 0.75vw solid darkred;
-    background-color: grey;
+    border: 0.75vw solid #192c3c;
+    background-color: #808f85;
     color: white;
 }
 
@@ -48,7 +48,7 @@ body {
     width: 85%;
     text-align: center;
     border: 0.55vw dotted black;
-    background-color: darkslategray;
+    background-color: #5e0b15;
     color: white;
 }
 
