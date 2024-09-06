@@ -49,7 +49,7 @@ body {
     margin-top: 2.5%;
     width: 85%;
     text-align: center;
-    border: 0.55vw dotted #ffffff;
+    border: 0.55vw groove #ffffff;
     background-color: #5e0b15;
     color: #ffffff;
 }
